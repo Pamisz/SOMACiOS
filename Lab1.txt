@@ -1,0 +1,164 @@
+Patryk Miszke 193249
+
+
+>>>Strings and Text<<<
+
+//Exercise 1
+
+var nb1 = 5
+var nb2 = 10
+
+print("\(nb1) + \(nb2) = \(nb1+nb2)")
+
+
+//Exercise 2
+
+let originalString = "Gdansk University of Technology"
+var modifiedString = ""
+
+for char in originalString {
+    if char == "n" {
+        modifiedString += "⭐️"
+    } else {
+        modifiedString += String(char)
+    }
+}
+print(modifiedString)
+
+
+//Exercise 3
+
+let myName = "Patryk Miszke"
+let reversedName = String(myName.reversed())
+print(reversedName)
+
+
+
+>>>Control Flow<<< 
+
+//Exercise 1
+
+var i = 0
+while i < 11{
+  print("I will pass this course with best mark, because Swift is great!")
+  i+=1
+}
+
+
+//Exercise 2
+
+let N = 12 
+for i in 1...N {
+    print("\(i*i)")
+}
+
+
+//Exercise 3
+
+var N = 12
+for _ in 1...N {
+  for _ in 1...N {
+    print("@", terminator: "")
+  }
+  print() 
+}
+
+
+
+>>>Arrays<<<
+
+//Exercise 1
+
+var numbers = [5, 10, 20, 15, 80, 13]
+var max = numbers[0]
+
+for i in numbers {
+  if max <= i {
+    max = i
+  }
+}
+print (max)
+
+
+//Exercise 2
+
+var numbers = [5, 10, 20, 15, 80, 13]
+numbers.reverse()
+
+print(numbers)
+
+
+//Exercise 3
+
+var allNumbers = [10, 20, 10, 11, 13, 20, 10, 30]
+var unique: [Int] = []
+
+for i in allNumbers {
+    if !unique.contains(i) {
+        unique.append(i)
+    }
+}
+
+print("unique = \(unique)")
+
+
+
+>>>Sets<<< 
+
+//Exercise
+
+var number = 10
+var divisors = Set<Int>()
+
+for i in 1...number{
+  if number%i == 0{
+    divisors.insert(i)
+  }
+}
+
+print(divisors.sorted())
+
+
+
+>>>Dictionaries<<<
+
+//Exercise 1 
+
+var flights: [[String: String]] = [
+    [
+        "flightNumber" : "AA8025",
+        "destination" : "Copenhagen"
+    ],
+    [
+        "flightNumber" : "BA1442",
+        "destination" : "New York"
+    ],
+    [
+        "flightNumber" : "BD6741",
+        "destination" : "Barcelona"
+    ]
+]
+
+var flightNumbers: [String] = []
+
+for i in flights {
+    if let flightNumber = i["flightNumber"] {
+        flightNumbers.append(flightNumber)
+    }
+}
+
+print("flightNumbers = \(flightNumbers)")
+
+
+//Exercise 2
+
+var names = ["Hommer", "Lisa", "Bart"]
+var fullName: [[String: String]] = []
+
+for i in names {
+    let element: [String: String] = ["lastName": "Simpson", "firstName": i]
+    fullName.append(element)
+}
+
+print("fullName = \(fullName)")
+

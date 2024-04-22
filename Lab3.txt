@@ -1,0 +1,111 @@
+import Foundation
+
+enum MediaType {
+    case photo
+    case video
+    case text
+}
+
+struct Profile {
+    let username: String
+    var follows: Int
+    var posts: Int
+    
+    func formattedFollows() -> String {
+        if follows >= 1000000 {
+            return String(format: "%.1fmln", Float(follows)/1000000)
+        } else if follows >= 1000 {
+            return String(format: "%.1fk", Float(follows)/1000)
+        } else {
+            return "\(follows)"
+        }
+    }
+    
+    func formattedPosts() -> String {
+        if posts >= 1000000 {
+            return String(format: "%.1fmln", Float(posts)/1000000)
+        } else if posts >= 1000 {
+            return String(format: "%.1fk", Float(posts)/1000)
+        } else {
+            return "\(posts)"
+        }
+    }
+}
+
+class Post {
+    let userProfile: Profile
+    let mediaType: MediaType
+    let date: Date
+    let likes: Int
+    
+    init(userProfile: Profile, mediaType: MediaType, date: Date, likes: Int) {
+        self.userProfile = userProfile
+        self.mediaType = mediaType
+        self.date = date
+        self.likes = likes
+    }
+    
+    func formattedLikes() -> String {
+        if likes >= 1000 {
+            return String(format: "%.1fk", Float(likes)/1000)
+        } else {
+            return "\(likes)"
+        }
+    }
+}
+
+class InstagramPost: Post {
+    var caption: String
+    
+    init(userProfile: Profile, mediaType: MediaType, date: Date, likes: Int, caption: String) {
+        self.caption = caption
+        super.init(userProfile: userProfile, mediaType: mediaType, date: date, likes: likes)
+    }
+}
+
+func displayPost(post: Post) {
+    let mediaTypeString: String
+    switch post.mediaType {
+    case .photo:
+        mediaTypeString = "Photo"
+    case .video:
+        mediaTypeString = "Video"
+    case .text:
+        mediaTypeString = "Text"
+    }
+    
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "dd.MM.yyyy"
+    let dateString = dateFormatter.string(from: post.date)
+    
+    var postInfo = "Profile name: \(post.userProfile.username) | Profile follows: \(post.userProfile.formattedFollows()) | Profile posts: \(post.userProfile.formattedPosts()) \n => Media type: \(mediaTypeString) | Date: \(dateString) | Number of likes: \(post.formattedLikes())"
+    
+    if let instagramPost = post as? InstagramPost {
+        postInfo += " | Caption: \(instagramPost.caption)"
+    }
+    
+    print(postInfo)
+}
+
+var usersAndPosts: [InstagramPost] = []
+
+let date1 = Calendar.current.date(byAdding: .day, value: -15, to: Date())!
+let date2 = Calendar.current.date(byAdding: .day, value: -615, to: Date())!
+let date3 = Calendar.current.date(byAdding: .day, value: -380, to: Date())!
+
+var user = Profile(username: "Apple", follows: 32400000, posts: 1181)
+var insta = InstagramPost(userProfile: user, mediaType: .video, date: date1, likes: 413000, caption: "Video made by Iphone 15 pro!")
+usersAndPosts.append(insta)
+
+var user2 = Profile(username: "LG", follows: 17900, posts: 1331)
+var insta2 = InstagramPost(userProfile: user2, mediaType: .photo, date: date2, likes: 131707, caption: "Life's good.")
+usersAndPosts.append(insta2)
+
+var user3 = Profile(username: "Samsung", follows: 1700000, posts: 343)
+var insta3 = InstagramPost(userProfile: user3, mediaType: .text, date: date3, likes: 560, caption: "Bespoke AI is coming soon...")
+usersAndPosts.append(insta3)
+
+for post in usersAndPosts {
+    displayPost(post: post)
+    print("\n")
+}

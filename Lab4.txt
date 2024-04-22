@@ -1,0 +1,274 @@
+import Foundation
+//Extended data model
+struct Location {
+    var id: Int
+    var type: String
+    var name: String
+    var rating: Int 
+}
+
+struct City {
+    var id: Int
+    var name: String
+    var description: String
+    var latitude: Double
+    var longitude: Double
+    var tags: [String]
+    var locations: [Location] 
+}
+
+var locations: [Location] = [
+    Location(id: 1, type: "Restaurant", name: "The Rusty Spoon", rating: 5),
+    Location(id: 2, type: "Hotel", name: "Sunrise Inn", rating: 5),
+    Location(id: 3, type: "Park", name: "Green Valley Park", rating: 4),
+    Location(id: 4, type: "Museum", name: "Artisan Gallery", rating: 4),
+    Location(id: 5, type: "Cafe", name: "Mocha Moments", rating: 3),
+    Location(id: 6, type: "Beach", name: "Sandy Shores Beach", rating: 5),
+    Location(id: 7, type: "Theater", name: "Starlight Theater", rating: 4),
+    Location(id: 8, type: "Shopping Mall", name: "City Center Mall", rating: 4),
+    Location(id: 9, type: "Amusement Park", name: "Thrill Land", rating: 5),
+    Location(id: 10, type: "Lake", name: "Crystal Lake", rating: 4),
+    Location(id: 11, type: "Bar", name: "The Tipsy Tavern", rating: 3),
+    Location(id: 12, type: "Gym", name: "Fit Nation", rating: 4),
+    Location(id: 13, type: "Zoo", name: "Wildlife Safari", rating: 5),
+    Location(id: 14, type: "Cinema", name: "Silver Screen Cinemas", rating: 4),
+    Location(id: 15, type: "Bookstore", name: "Bookworm Haven", rating: 4),
+    Location(id: 16, type: "Mountain", name: "Eagle Peak", rating: 5),
+    Location(id: 17, type: "Spa", name: "Tranquil Spa Retreat", rating: 5),
+    Location(id: 18, type: "Golf Course", name: "Green Valley Golf Club", rating: 4),
+    Location(id: 19, type: "Hotel", name: "Moonlight Hotel", rating: 4),
+    Location(id: 20, type: "Restaurant", name: "Gourmet Bistro", rating: 4),
+    Location(id: 21, type: "Museum", name: "History Museum", rating: 4),
+    Location(id: 22, type: "Beach", name: "Paradise Cove", rating: 5),
+    Location(id: 23, type: "Garden", name: "Botanical Gardens", rating: 4),
+    Location(id: 24, type: "Cafe", name: "Caffeine Corner", rating: 3),
+    Location(id: 25, type: "Theater", name: "Grand Stage Theater", rating: 4),
+    Location(id: 26, type: "Shopping Mall", name: "Fashion Plaza", rating: 4),
+    Location(id: 27, type: "Amusement Park", name: "Adventure World", rating: 5),
+    Location(id: 28, type: "Lake", name: "Mirror Lake", rating: 4),
+    Location(id: 29, type: "Bar", name: "Cheers Bar & Grill", rating: 3),
+    Location(id: 30, type: "Gym", name: "Iron Works Fitness", rating: 4),
+    Location(id: 31, type: "Zoo", name: "Safari Park", rating: 5),
+    Location(id: 32, type: "Cinema", name: "Cinephile Cinemas", rating: 4),
+    Location(id: 33, type: "Bookstore", name: "Page Turner Books", rating: 4),
+    Location(id: 34, type: "Mountain", name: "Mount Evergreen", rating: 5),
+    Location(id: 35, type: "Spa", name: "Serenity Spa", rating: 5),
+    Location(id: 36, type: "Golf Course", name: "Fairway Links", rating: 4),
+    Location(id: 37, type: "Hotel", name: "Mountain View Lodge", rating: 4),
+    Location(id: 38, type: "Restaurant", name: "Sizzling Steaks", rating: 4),
+    Location(id: 39, type: "Park", name: "Central Park", rating: 4),
+    Location(id: 40, type: "Museum", name: "Science Museum", rating: 4),
+    Location(id: 41, type: "Beach", name: "Golden Sands Beach", rating: 5),
+    Location(id: 42, type: "Garden", name: "Rose Garden", rating: 4),
+    Location(id: 43, type: "Cafe", name: "Cozy Cafe", rating: 3),
+    Location(id: 44, type: "Theater", name: "Drama House", rating: 4),
+    Location(id: 45, type: "Shopping Mall", name: "Mega Mall", rating: 4),
+    Location(id: 46, type: "Amusement Park", name: "Fantasy Island", rating: 5),
+    Location(id: 47, type: "Lake", name: "Tranquil Waters Lake", rating: 4),
+    Location(id: 48, type: "Bar", name: "The Lounge", rating: 3),
+    Location(id: 49, type: "Gym", name: "Fitness Fusion", rating: 4),
+    Location(id: 50, type: "Zoo", name: "Animal Kingdom", rating: 5),
+    Location(id: 51, type: "Cinema", name: "Blockbuster Cinemas", rating: 4),
+    Location(id: 52, type: "Bookstore", name: "Literary Haven", rating: 4),
+    Location(id: 53, type: "Mountain", name: "Peak Summit", rating: 5),
+    Location(id: 54, type: "Spa", name: "Elysian Spa", rating: 5),
+    Location(id: 55, type: "Golf Course", name: "Eagle's Nest Golf Club", rating: 4),
+    Location(id: 56, type: "Hotel", name: "Ocean View Hotel", rating: 4),
+    Location(id: 57, type: "Restaurant", name: "Sushi Heaven", rating: 4),
+    Location(id: 58, type: "Park", name: "Sunset Park", rating: 4),
+    Location(id: 59, type: "Museum", name: "Natural History Museum", rating: 4),
+    Location(id: 60, type: "Restaurant", name: "Simple", rating: 5)]
+
+func selectRandomLocationsWithoutRepetition(_ count: Int, from locations: inout [Location]) -> [Location] {
+    var randomLocations: [Location] = []
+    while randomLocations.count < count && !locations.isEmpty {
+        let randomIndex = Int.random(in: 0..<locations.count)
+        let randomLocation = locations.remove(at: randomIndex)
+        randomLocations.append(randomLocation)
+    }
+    return randomLocations
+}
+
+
+var cities = [
+    City(id: 1, name: "New York City", description: "The Big Apple", latitude: 40.7128, longitude: -74.0060, tags: ["urban", "culture", "nightlife"],locations:selectRandomLocationsWithoutRepetition(3, from: &locations)),
+    City(id: 2, name: "Paris", description: "The City of Love", latitude: 48.8566, longitude: 2.3522, tags: ["romantic", "historic", "art"],locations:selectRandomLocationsWithoutRepetition(3, from: &locations)),
+    City(id: 3, name: "Tokyo", description: "The Capital of Japan", latitude: 35.6895, longitude: 139.6917, tags: ["modern", "technology", "food"],locations:selectRandomLocationsWithoutRepetition(3, from: &locations)),
+    City(id: 4, name: "London", description: "The Capital of England", latitude: 51.5074, longitude: -0.1278, tags: ["historic", "culture", "architecture"],locations:selectRandomLocationsWithoutRepetition(3, from: &locations)),
+    City(id: 5, name: "Sydney", description: "The Harbour City", latitude: -33.8688, longitude: 151.2093, tags: ["seaside", "urban", "culture"],locations:selectRandomLocationsWithoutRepetition(3, from: &locations)),
+    City(id: 6, name: "Rio de Janeiro", description: "The Marvelous City", latitude: -22.9068, longitude: -43.1729, tags: ["beach", "party", "nature"],locations:selectRandomLocationsWithoutRepetition(3, from: &locations)),
+    City(id: 7, name: "Dubai", description: "The City of Gold", latitude: 25.276987, longitude: 55.296249, tags: ["luxury", "modern", "architecture"],locations:selectRandomLocationsWithoutRepetition(3, from: &locations)),
+    City(id: 8, name: "Cape Town", description: "The Mother City", latitude: -33.9249, longitude: 18.4241, tags: ["nature", "scenic", "adventure"],locations:selectRandomLocationsWithoutRepetition(3, from: &locations)),
+    City(id: 9, name: "Rome", description: "The Eternal City", latitude: 41.9028, longitude: 12.4964, tags: ["historic", "art", "culture"],locations:selectRandomLocationsWithoutRepetition(3, from: &locations)),
+    City(id: 10, name: "Bangkok", description: "The Capital of Thailand", latitude: 13.7563, longitude: 100.5018, tags: ["culture", "food", "nightlife"],locations:selectRandomLocationsWithoutRepetition(3, from: &locations)),
+    City(id: 11, name: "Berlin", description: "The Capital of Germany", latitude: 52.5200, longitude: 13.4050, tags: ["historic", "culture", "nightlife"],locations:selectRandomLocationsWithoutRepetition(3, from: &locations)),
+    City(id: 12, name: "Moscow", description: "The Capital of Russia", latitude: 55.7558, longitude: 37.6173, tags: ["historic", "culture", "architecture"],locations:selectRandomLocationsWithoutRepetition(3, from: &locations)),
+    City(id: 13, name: "Los Angeles", description: "The City of Angels", latitude: 34.0522, longitude: -118.2437, tags: ["entertainment", "beach", "culture"],locations:selectRandomLocationsWithoutRepetition(3, from: &locations)),
+    City(id: 14, name: "Singapore", description: "The Lion City", latitude: 1.3521, longitude: 103.8198, tags: ["modern", "technology", "food"],locations:selectRandomLocationsWithoutRepetition(3, from: &locations)),
+    City(id: 15, name: "Mumbai", description: "The City of Dreams", latitude: 19.0760, longitude: 72.8777, tags: ["culture", "food", "history"],locations:selectRandomLocationsWithoutRepetition(3, from: &locations)),
+    City(id: 16, name: "Istanbul", description: "The Gateway to Europe and Asia", latitude: 41.0082, longitude: 28.9784, tags: ["historic", "culture", "food"],locations:selectRandomLocationsWithoutRepetition(3, from: &locations)),
+    City(id: 17, name: "Seoul", description: "The Capital of South Korea", latitude: 37.5665, longitude: 126.9780, tags: ["modern", "technology", "culture"],locations:selectRandomLocationsWithoutRepetition(3, from: &locations)),
+    City(id: 18, name: "Barcelona", description: "The Capital of Catalonia", latitude: 41.3851, longitude: 2.1734, tags: ["beach", "culture", "architecture"],locations:selectRandomLocationsWithoutRepetition(3, from: &locations)),
+    City(id: 19, name: "Amsterdam", description: "The Capital of the Netherlands", latitude: 52.3676, longitude: 4.9041, tags: ["historic", "culture", "nightlife"],locations:selectRandomLocationsWithoutRepetition(3, from: &locations)),
+    City(id: 20, name: "Venice", description: "The City of Canals", latitude: 45.4408, longitude: 12.3155, tags: ["romantic", "historic", "culture"],locations:selectRandomLocationsWithoutRepetition(3, from: &locations))
+]
+
+//Search
+func searchCitiesByName(_ name: String, in cities: [City]) -> [City] {
+    let filteredCities = cities.filter { $0.name.lowercased().contains(name.lowercased()) }
+    return filteredCities
+}
+let matchingCities1 = searchCitiesByName("Dubai", in: cities)
+for city in matchingCities1 {
+    print("City found: \(city.name)")
+}
+
+func searchCitiesByKeyword(_ keyword: String, in cities: [City]) -> [City] {
+    let filteredCities = cities.filter { $0.tags.contains(keyword.lowercased()) }
+    return filteredCities
+}
+let matchingCities2 = searchCitiesByKeyword("culture", in: cities)
+for city in matchingCities2 {
+    print("City found with the keyword 'culture': \(city.name)")
+}
+
+//Distance
+func calculateDistanceBetweenCities(city1: City, city2: City) -> Double {
+    let earthRadius = 6371.0 
+
+    let lat1Rad = city1.latitude * Double.pi / 180.0
+    let lon1Rad = city1.longitude * Double.pi / 180.0
+    let lat2Rad = city2.latitude * Double.pi / 180.0
+    let lon2Rad = city2.longitude * Double.pi / 180.0
+
+    let dLat = lat2Rad - lat1Rad
+    let dLon = lon2Rad - lon1Rad
+    let a = sin(dLat/2) * sin(dLat/2) + cos(lat1Rad) * cos(lat2Rad) * sin(dLon/2) * sin(dLon/2)
+    let c = 2 * atan2(sqrt(a), sqrt(1-a))
+    let distance = earthRadius * c
+
+    return distance
+}
+let barcelona = cities.first { $0.name == "Barcelona" }!
+let amsterdam = cities.first { $0.name == "Amsterdam" }!
+let distance = calculateDistanceBetweenCities(city1: barcelona, city2: amsterdam)
+print("Distance between Barcelona and Amsterdam: \(distance) km")
+
+func findClosestAndFarthestCities(userLatitude: Double, userLongitude: Double, cities: [City]) -> (closest: City?, farthest: City?) {
+    var closestCity: City? = nil
+    var farthestCity: City? = nil
+    var shortestDistance = Double.infinity
+    var longestDistance: Double = 0.0
+    
+    for city in cities {
+        let distance = calculateDistanceBetweenCities(city1: City(id: 0, name: "", description: "", latitude: userLatitude, longitude: userLongitude, tags: [], locations:[]), city2: city)
+        
+        if distance < shortestDistance {
+            shortestDistance = distance
+            closestCity = city
+        }
+        
+        if distance > longestDistance {
+            longestDistance = distance
+            farthestCity = city
+        }
+    }
+    
+    return (closestCity, farthestCity)
+}
+let userLatitude = 52.2297 
+let userLongitude = 21.0122 
+let closestAndFarthest = findClosestAndFarthestCities(userLatitude: userLatitude, userLongitude: userLongitude, cities: cities)
+
+
+if let closest = closestAndFarthest.closest {
+    print("Closest city to the user: \(closest.name)")
+} else {
+    print("No closest city found.")
+}
+
+if let farthest = closestAndFarthest.farthest {
+    print("Farthest city to the user: \(farthest.name)")
+} else {
+    print("No farthest city found.")
+}
+
+func findTwoFarthestCities(cities: [City]) -> (City, City)? {
+    guard cities.count >= 2 else {
+        return nil 
+    }
+    
+    var farthestCity1: City? = nil
+    var farthestCity2: City? = nil
+    var maxDistance: Double = 0.0
+    
+    for i in 0..<cities.count {
+        for j in (i+1)..<cities.count {
+            let distance = calculateDistanceBetweenCities(city1: cities[i], city2: cities[j])
+            
+            if distance > maxDistance {
+                maxDistance = distance
+                farthestCity1 = cities[i]
+                farthestCity2 = cities[j]
+            }
+        }
+    }
+    
+    return (farthestCity1!, farthestCity2!)
+}
+if let (farthestCity1, farthestCity2) = findTwoFarthestCities(cities: cities) {
+    print("Two farthest cities: \(farthestCity1.name) and \(farthestCity2.name)")
+} else {
+    print("There are not enough cities to find the farthest pair.")
+}
+
+//Advance search
+func citiesWithFiveStarRestaurants(cities: [City]) -> [City] {
+    var citiesWithFiveStarRestaurants: [City] = []
+    
+    for city in cities {
+        let fiveStarRestaurants = city.locations.filter { $0.type == "Restaurant" && $0.rating == 5 }
+        if !fiveStarRestaurants.isEmpty {
+            citiesWithFiveStarRestaurants.append(city)
+        }
+    }
+    
+    return citiesWithFiveStarRestaurants
+}
+
+let citiesWithFiveStarRestaurantsList = citiesWithFiveStarRestaurants(cities: cities)
+
+if citiesWithFiveStarRestaurantsList.isEmpty {
+    print("No cities found with five-star restaurants.")
+} else {
+    print("Cities with five-star restaurants:")
+    for city in citiesWithFiveStarRestaurantsList {
+        print("- \(city.name)")
+    }
+}
+
+func getLocationsSortedByRating(for city: City) -> [Location] {
+    let sortedLocations = city.locations.sorted { $0.rating > $1.rating }
+    return sortedLocations
+}
+
+let paris = cities.first { $0.name == "Paris" }!
+let sortedLocationsInParis = getLocationsSortedByRating(for: paris)
+print("Locations in Paris sorted by rating:")
+for location in sortedLocationsInParis {
+    print("- \(location.name), Rating: \(location.rating)")
+}
+
+func displayCitiesWithFiveStarLocations(cities: [City]) {
+    for city in cities {
+        let fiveStarLocations = city.locations.filter { $0.rating == 5 }
+        print("\(city.name) - \(fiveStarLocations.count) locations with 5-star rating:")
+        for location in fiveStarLocations {
+            print("- \(location.name)")
+        }
+        print("--------------")
+    }
+}
+
+displayCitiesWithFiveStarLocations(cities: cities)
+

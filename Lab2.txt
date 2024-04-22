@@ -1,0 +1,165 @@
+>>>Functions<<<
+Exercise:
+
+//1
+func minValue(_ a: Int, _ b: Int) -> Int {
+    if (a < b) {
+      return a
+    }
+    else{
+      return b
+    }
+}
+
+//2
+func lastDigit(_ number: Int) -> Int {
+    return abs(number) % 10
+}
+
+//3
+func divides(_ a: Int, _ b: Int) -> Bool {
+    return a % b == 0
+}
+
+func countDivisors(_ number: Int) -> Int {
+    var divisorCount = 0
+    for i in 1...number {
+        if divides(number, i) {
+            divisorCount += 1
+        }
+    }
+    return divisorCount
+}
+
+func isPrime(_ number: Int) -> Bool {
+    return countDivisors(number) == 2
+}
+
+print(minValue(142, 140)) 
+print(minValue(37213, 13313))
+print(minValue(3203, 5421))
+print(lastDigit(8347328)) 
+print(divides(16, 4)) 
+print(divides(21, 8)) 
+print(countDivisors(1)) 
+print(countDivisors(12)) 
+print(isPrime(3)) 
+print(isPrime(8))
+
+
+>>>Closures<<<
+Exercise 2:
+
+//1
+func smartBart(_ n: Int, closure: () -> Void) {
+    for _ in 0..<n {
+        closure()
+    }
+}
+
+let sentence = "I will pass this course with best mark, because Swift is great!"
+smartBart(5) {
+    print(sentence)
+}
+
+//2
+let numbers = [10, 16, 18, 30, 38, 40, 44, 50]
+let multiples = numbers.filter { $0 % 4 == 0 }
+print(multiples)
+
+//3
+let maxNumber = numbers.reduce(numbers.first ?? Int.min, { max($0, $1) })
+print("The largest number is: \(maxNumber)")
+
+
+//4
+var strings = ["Gdansk", "University", "of", "Technology"]
+let joinedString = strings.reduce("", { $0.isEmpty ? $1 : $0 + " " + $1 })
+print(joinedString)
+
+//5
+let numbers2 = [1, 2 ,3 ,4, 5, 6]
+let sumOfSquares = numbers2.filter { $0 % 2 != 0 } 
+                         .map { $0 * $0 }         
+                         .reduce(0, +)            
+print("Sum of squares of odd numbers: \(sumOfSquares)")
+
+>>>Tuples<<<
+Exercise:
+
+//1
+func minmax(_ a: Int, _ b: Int) -> (min: Int, max: Int) {
+    return (a < b) ? (a, b) : (b, a)
+}
+
+let (minValue, maxValue) = minmax(81, 23)
+print("Minimum value: \(minValue), Maximum value: \(maxValue)")
+
+// 2
+var stringsArray = ["gdansk", "university", "gdansk", "university", "university", "of", "technology", "technology", "gdansk", "gdansk"]
+var countedStrings = [(String, Int)]()
+
+for string in Set(stringsArray) {
+    let count = stringsArray.filter { $0 == string }.count
+    countedStrings.append((string, count))
+}
+
+print(countedStrings)
+
+
+>>>Enums<<<
+Exercise:
+
+enum Day: Int {
+    case monday
+    case tuesday
+    case wednesday
+    case thursday
+    case friday 
+    case saturday 
+    case sunday 
+ 
+    func displayEmoji() -> String {
+        switch self {
+        case .monday:
+            return "🌧"
+        case .tuesday:
+            return "🎈"
+        case .wednesday:
+            return "🍦"
+        case .thursday:
+            return "🍆"
+        case .friday:
+            return "🍻"
+        case .saturday:
+            return "🍺"
+        case .sunday:
+            return "🛌"
+        }
+    }
+
+
+    func displayNumb() -> Int {
+        switch self {
+        case .monday:
+            return 1
+        case .tuesday:
+            return 2
+        case .wednesday:
+            return 3
+        case .thursday:
+            return 4
+        case .friday:
+            return 5
+        case .saturday:
+            return 6
+        case .sunday:
+            return 7
+        }
+    }
+
+
+}
+
+let today = Day.friday
+print("Today is \(today.displayEmoji())  the \(today.displayNumb()) day of the week.") 
