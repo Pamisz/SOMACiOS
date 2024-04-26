@@ -1,0 +1,160 @@
+import Foundation
+
+struct WordGuessingGame {
+    enum Category {
+        case cities
+        case movies
+        case books
+        
+        var words: [String] {
+            switch self {
+            case .cities:
+                return ["london", "paris", "tokyo", "newyork", "berlin"]
+            case .movies:
+                return ["inception", "titanic", "avatar", "joker", "alien"]
+            case .books:
+                return ["moby", "war", "gatsby", "sherlock", "harrypotter"]
+            }
+        }
+    }
+    
+    enum Level {
+        case easy
+        case medium
+        case hard
+        
+        var maxTries: Int {
+            switch self {
+            case .easy:
+                return 10
+            case .medium:
+                return 7
+            case .hard:
+                return 5
+            }
+        }
+        
+        var maxWordLength: Int {
+            switch self {
+            case .easy:
+                return 6
+            case .medium:
+                return 8
+            case .hard:
+                return 10
+            }
+        }
+    }
+    
+    var category: Category
+    var level: Level
+    
+    var wordToGuess: String
+    var guessedLetters: Set<Character>
+    var remainingTries: Int
+    
+    init(category: Category, level: Level) {
+        self.category = category
+        self.level = level
+        self.wordToGuess = category.words.filter { $0.count <= level.maxWordLength }.randomElement() ?? ""
+        self.guessedLetters = Set<Character>()
+        self.remainingTries = level.maxTries
+    }
+    
+    func drawBoard() {
+        var displayWord = ""
+        for letter in wordToGuess {
+            if guessedLetters.contains(letter) {
+                displayWord += "\(letter) "
+            } else {
+                displayWord += "_ "
+            }
+        }
+        print("Word: \(displayWord)")
+    }
+    
+    mutating func guess(letter: Character) {
+        if guessedLetters.contains(letter) {
+            print("You've already guessed \(letter). Try another letter.")
+            return
+        }
+        
+        guessedLetters.insert(letter)
+        
+        if wordToGuess.contains(letter) {
+            print("Correct! \(letter) is in the word. You have \(remainingTries) tries left.")
+        } else {
+            remainingTries -= 1
+            print("Incorrect. You have \(remainingTries) tries left.")
+        }
+    }
+    
+    func isGameWon() -> Bool {
+        return Set(wordToGuess).isSubset(of: guessedLetters)
+    }
+    
+    func isGameLost() -> Bool {
+        return remainingTries <= 0
+    }
+}
+
+func playGame() {
+    print("Welcome to the Word Guessing Game!")
+    print("Select a category: 1. Cities 2. Movies 3. Books")
+    
+    let categoryInput = readLine() ?? ""
+    let category: WordGuessingGame.Category
+    
+    switch categoryInput {
+    case "1":
+        category = .cities
+    case "2":
+        category = .movies
+    case "3":
+        category = .books
+    default:
+        print("Invalid choice. Defaulting to Cities.")
+        category = .cities
+    }
+    
+    print("Select a level: 1. Easy 2. Medium 3. Hard")
+    
+    let levelInput = readLine() ?? ""
+    let level: WordGuessingGame.Level
+    
+    switch levelInput {
+    case "1":
+        level = .easy
+    case "2":
+        level = .medium
+    case "3":
+        level = .hard
+    default:
+        print("Invalid choice. Defaulting to Easy.")
+        level = .easy
+    }
+    
+    var game = WordGuessingGame(category: category, level: level)
+    
+    while !game.isGameWon() && !game.isGameLost() {
+        game.drawBoard()
+        print("\nGuess a letter:")
+        
+        let guess = readLine()?.lowercased() ?? ""
+        
+        if guess.count != 1 {
+            print("Please enter a single letter.")
+            continue
+        }
+        
+        game.guess(letter: Character(guess))
+    }
+    
+    if game.isGameWon() {
+        print("Congratulations! You've guessed the word!")
+    } else if game.isGameLost() {
+        print("Game over. The word was \(game.wordToGuess).")
+    }
+}
+
+playGame()
